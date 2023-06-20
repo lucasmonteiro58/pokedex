@@ -6,6 +6,8 @@ export default defineNuxtConfig({
     "@nuxtjs/eslint-module",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
+    "@nuxtjs/google-fonts",
+    "unplugin-fonts/nuxt",
   ],
   tailwindcss: {
     exposeConfig: true,
@@ -13,5 +15,15 @@ export default defineNuxtConfig({
   },
   eslint: {
     lintOnStart: false,
+  },
+  unfonts: {
+    google: {
+      families: [
+        {
+          name: "Poppins",
+          styles: "wght@400;500;600;700;800;900",
+        },
+      ],
+    },
   },
 });

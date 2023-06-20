@@ -1,8 +1,15 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="mt-4">
-    <div class="mt-4 w-7 h-20 bg-red-500"></div>
+  <div class="min-h-screen bg-green-500">
+    <header class="w-full h-full px-8 py-8 flex justify-between">
+      <div class="flex items-center text-white">
+        <IconPokeball width="50" />
+        <div class="font-black text-5xl ml-4">Pokédex</div>
+      </div>
+
+      <InputSearch />
+    </header>
     <NuxtPage />
   </div>
 </template>
