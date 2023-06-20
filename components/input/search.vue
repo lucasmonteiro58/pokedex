@@ -1,7 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useVModel } from "@vueuse/core";
+
+const props = defineProps<{
+  modelValue: string;
+  placeholder?: string;
+}>();
+const emit = defineEmits(["update:modelValue", "search"]);
+
+const data = useVModel(props, "modelValue", emit);
+</script>
 
 <template>
-  <div>
-    <input placeholder="Search pokémon name" class="bg-white px-4 py-2" />
-  </div>
+  <input
+    v-model="data"
+    :placeholder="props.placeholder || 'Search...'"
+    class="bg-white px-4 py-2"
+    @keypress.enter="emit('search', data)"
+  />
 </template>
