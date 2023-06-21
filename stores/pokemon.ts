@@ -7,6 +7,14 @@ const usePokemonStore = defineStore("pokemon", () => {
   const totalPokemons = ref<number>(0);
   const predominantColor = ref<string | null>(null);
 
+  const pokemonImage = computed<string | undefined>(() => {
+    return (
+      pokemon.value?.sprites?.other?.home.front_default ||
+      pokemon.value?.sprites?.other?.["official-artwork"].front_default ||
+      pokemon.value?.sprites?.front_default
+    );
+  });
+
   const bgSolid = computed((): StyleValue => {
     return {
       backgroundColor: predominantColor.value,
@@ -15,7 +23,7 @@ const usePokemonStore = defineStore("pokemon", () => {
 
   function setPokemon(newPokemon: IPokemon) {
     pokemon.value = newPokemon;
-    setPredominantColor(newPokemon.sprites?.other?.home?.front_default);
+    setPredominantColor(pokemonImage.value);
   }
 
   async function setPredominantColor(imageUrl: string | undefined) {
@@ -24,6 +32,7 @@ const usePokemonStore = defineStore("pokemon", () => {
 
   return {
     pokemon,
+    pokemonImage,
     loading,
     totalPokemons,
     setPokemon,
