@@ -16,6 +16,12 @@ const usePokemonStore = defineStore("pokemon", () => {
     );
   });
 
+  const pokemonName = computed<string>(() => {
+    const name = pokemon.value?.name;
+    if (name) name[0].toUpperCase();
+    return name || "";
+  });
+
   const bgSolid = computed((): StyleValue => {
     return {
       backgroundColor: predominantColor.value,
@@ -35,6 +41,9 @@ const usePokemonStore = defineStore("pokemon", () => {
     predominantColor.value = await getPredominantColor(imageUrl).finally(() => {
       loadingImage.value = false;
     });
+    document
+      ?.querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", predominantColor.value || "#fff");
   }
 
   return {
@@ -47,6 +56,7 @@ const usePokemonStore = defineStore("pokemon", () => {
     predominantColor,
     bgSolid,
     loading,
+    pokemonName,
   };
 });
 
