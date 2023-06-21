@@ -19,7 +19,7 @@ const nameMargin = computed(() => {
     >
       <div class="text-white font-semibold text-lg">#{{ pokemon?.id }}</div>
       <div
-        class="capitalize text-white font-black sm:text-8xl text-5xl truncate"
+        class="capitalize text-white font-black sm:text-8xl text-5xl break-all max-w-full"
         :class="nameMargin ? 'mb-4' : 'mb-0'"
       >
         {{ pokemon?.name }}

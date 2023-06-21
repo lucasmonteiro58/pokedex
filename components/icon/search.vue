@@ -7,17 +7,15 @@ const { width = "24" } = defineProps<{
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    :width="width"
-    :height="width"
-    viewBox="0 0 24 24"
+    :width="width || '24'"
+    :height="width || '24'"
+    viewBox="0 0 20 20"
   >
     <path
-      fill="none"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2.5"
-      d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314Z"
+      fill="currentColor"
+      fill-rule="evenodd"
+      d="M8 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8ZM2 8a6 6 0 1 1 10.89 3.476l4.817 4.817a1 1 0 0 1-1.414 1.414l-4.816-4.816A6 6 0 0 1 2 8Z"
+      clip-rule="evenodd"
     />
   </svg>
 </template>
