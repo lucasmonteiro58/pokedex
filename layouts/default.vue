@@ -17,6 +17,7 @@ const pokemonStore = usePokemonStore();
     :style="pokemonStore.bgSolid"
   >
     <div
+      v-if="!pokemonStore.loading"
       class="w-full px-4 py-4 sm:px-8 sm:py-8 flex flex-col justify-between sm:flex-row items-center"
     >
       <div class="flex items-center text-white">

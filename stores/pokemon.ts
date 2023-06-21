@@ -3,7 +3,8 @@ import { IPokemon } from "~/types/pokemon";
 
 const usePokemonStore = defineStore("pokemon", () => {
   const pokemon = ref<IPokemon>({} as IPokemon);
-  const loading = ref<boolean>(false);
+  const loadingRequest = ref<boolean>(false);
+  const loadingImage = ref<boolean>(true);
   const totalPokemons = ref<number>(0);
   const predominantColor = ref<string | null>(null);
 
@@ -21,23 +22,31 @@ const usePokemonStore = defineStore("pokemon", () => {
     } as StyleValue;
   });
 
+  const loading = computed<boolean>(() => {
+    return loadingRequest.value || loadingImage.value;
+  });
+
   function setPokemon(newPokemon: IPokemon) {
     pokemon.value = newPokemon;
     setPredominantColor(pokemonImage.value);
   }
 
   async function setPredominantColor(imageUrl: string | undefined) {
-    predominantColor.value = await getPredominantColor(imageUrl);
+    predominantColor.value = await getPredominantColor(imageUrl).finally(() => {
+      loadingImage.value = false;
+    });
   }
 
   return {
     pokemon,
     pokemonImage,
-    loading,
+    loadingRequest,
+    loadingImage,
     totalPokemons,
     setPokemon,
     predominantColor,
     bgSolid,
+    loading,
   };
 });
 
