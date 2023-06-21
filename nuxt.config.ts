@@ -9,6 +9,11 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "unplugin-fonts/nuxt",
   ],
+  app: {
+    head: {
+      title: "Pokédex",
+    },
+  },
   tailwindcss: {
     exposeConfig: true,
     viewer: false,
