@@ -13,7 +13,7 @@ const nameMargin = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center gap-x-10 flex-wrap">
+  <div class="flex items-center justify-center gap-x-10 flex-wrap mb-10">
     <div
       class="flex flex-col items-start w-full md:px-10 lg:w-fit px-4 lg:px-0"
     >
@@ -24,6 +24,7 @@ const nameMargin = computed(() => {
       >
         {{ pokemon?.name }}
       </div>
+
       <div class="flex gap-2 mt-1">
         <LayoutBagde
           v-for="t in pokemon?.types"
@@ -31,8 +32,22 @@ const nameMargin = computed(() => {
           :name="t.type?.name"
         ></LayoutBagde>
       </div>
+      <div
+        class="sm:min-w-[500px] md:min-h-[500px] min-w-fit min-h-fit block lg:hidden"
+      >
+        <img :src="pokemonStore.pokemonImage" alt="" class="" />
+      </div>
+      <div class="flex flex-col w-full sm:w-[300px] gap-3 mt-6">
+        <BaseStat
+          v-for="s in pokemon?.stats"
+          :key="s.stat.name"
+          :stat="s"
+        ></BaseStat>
+      </div>
     </div>
-    <div class="sm:min-w-[500px] sm:min-h-[500px] min-w-fit min-h-fit">
+    <div
+      class="sm:min-w-[500px] sm:min-h-[500px] min-w-fit min-h-fit hidden lg:block"
+    >
       <img :src="pokemonStore.pokemonImage" alt="" class="" />
     </div>
   </div>
