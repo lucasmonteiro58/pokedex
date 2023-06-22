@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useVModel, onClickOutside, useWindowSize } from "@vueuse/core";
+import usePokemonStore from "~/stores/pokemon";
+
+const pokemonStore = usePokemonStore();
 
 const props = defineProps<{
   modelValue: string;
@@ -30,26 +33,39 @@ onMounted(() => {
     opened.value = true;
   }
 });
+
+watch(data, () => {
+  if (data.value) pokemonStore.error = false;
+});
 </script>
 
 <template>
-  <div v-if="opened || mobile" ref="elRef" class="flex animation-fade-left">
-    <input
-      v-model="data"
-      :placeholder="props.placeholder || 'Search...'"
-      class="bg-transparent text-white px-4 py-3 rounded-l-md w-full sm:w-[300px] outline-0 border-2 border-r-0 placeholder-gray-100 font-bold animation-border"
-      :disabled="props.disabled"
-      autofocus
-      @keypress.enter="emit('search', data)"
-    />
-    <button
-      class="px-4 rounded-r-md bg-transparent text-white border-2 border-l-0 animation-border"
-      :disabled="props.disabled"
-      @click="emit('search', data)"
-    >
-      <IconSpinner v-if="disabled" width="20" />
-      <IconSearch v-else width="25" class="animation-zoom-out" />
-    </button>
+  <div
+    v-if="opened || mobile"
+    ref="elRef"
+    class="flex animation-fade-left flex-col"
+  >
+    <div class="flex">
+      <input
+        v-model="data"
+        :placeholder="props.placeholder || 'Search...'"
+        class="bg-transparent text-white px-4 py-3 rounded-l-md w-full sm:w-[300px] outline-0 border-2 border-r-0 placeholder-[#ffffffb5] font-bold animation-border"
+        :disabled="props.disabled"
+        autofocus
+        @keypress.enter="emit('search', data)"
+      />
+      <button
+        class="px-4 rounded-r-md bg-transparent text-white border-2 border-l-0 animation-border"
+        :disabled="props.disabled || !data"
+        @click="emit('search', data)"
+      >
+        <IconSpinner v-if="disabled" width="20" />
+        <IconSearch v-else width="25" class="animation-zoom-out" />
+      </button>
+    </div>
+    <div v-if="pokemonStore.error" class="text-white mt-1 italic">
+      "{{ data }}" not found
+    </div>
   </div>
 
   <button

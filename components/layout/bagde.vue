@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { StyleValue } from "nuxt/dist/app/compat/capi";
 import pokemonTypes from "~/data/pokemon-types.json";
+
 const props = defineProps<{
   name: string;
 }>();

@@ -12,6 +12,9 @@ export default function () {
       const data = await fetch(`${baseUrl}/pokemon/${name}`);
       const pokemon: IPokemon = await data.json();
       pokemonStore.setPokemon(pokemon);
+      pokemonStore.error = false;
+    } catch (e) {
+      pokemonStore.error = true;
     } finally {
       pokemonStore.loadingRequest = false;
     }

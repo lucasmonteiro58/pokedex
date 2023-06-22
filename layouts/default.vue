@@ -5,6 +5,7 @@ const { getPokemon } = useApi();
 const search = ref("");
 
 function searchPokemon(name: string) {
+  if (!name) return;
   getPokemon(name);
 }
 
@@ -28,6 +29,7 @@ const pokemonStore = usePokemonStore();
       <InputSearch
         v-model="search"
         class="mt-4 sm:mt-0 w-full sm:w-fit"
+        placeholder="Search by Name or ID..."
         :disabled="pokemonStore.loading"
         @search="searchPokemon"
       />

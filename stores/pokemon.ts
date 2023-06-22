@@ -7,6 +7,7 @@ const usePokemonStore = defineStore("pokemon", () => {
   const loadingImage = ref<boolean>(true);
   const totalPokemons = ref<number>(0);
   const predominantColor = ref<string | null>(null);
+  const error = ref<boolean>(false);
 
   const pokemonImage = computed<string | undefined>(() => {
     return (
@@ -57,6 +58,7 @@ const usePokemonStore = defineStore("pokemon", () => {
     bgSolid,
     loading,
     pokemonName,
+    error,
   };
 });
 
