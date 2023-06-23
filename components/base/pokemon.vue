@@ -28,16 +28,6 @@ function handleMouseMove(event: MouseEvent) {
   animateImage();
 }
 
-function handleTouchMove(event: TouchEvent) {
-  event.preventDefault();
-
-  const touch = event.touches[0];
-  mouseX.value = touch.clientX;
-  mouseY.value = touch.clientY;
-
-  animateImage();
-}
-
 function animateImage() {
   const img = imgRef.value as HTMLElement;
   const centerX = img.offsetLeft + imageWidth.value / 2;
@@ -70,8 +60,6 @@ function resetImage() {
       :style="style"
       @mousemove="handleMouseMove"
       @mouseleave="resetImage"
-      @touchmove="handleTouchMove"
-      @touchend="resetImage"
     />
   </div>
 </template>
