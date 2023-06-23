@@ -2,12 +2,9 @@
 import { animate, ElementOrSelector } from "motion";
 import { Stat } from "~/types/pokemon";
 
-const props = defineProps({
-  stat: {
-    type: Object as PropType<Stat>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  stat: Stat;
+}>();
 
 const elAnim = ref<HTMLElement | null>(null);
 
