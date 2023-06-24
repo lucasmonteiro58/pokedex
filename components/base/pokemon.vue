@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useMouseInElement } from "@vueuse/core";
+import { useMouseInElement, useDeviceOrientation } from "@vueuse/core";
 defineProps<{
   img?: string;
 }>();
 
 const imgRef = ref<HTMLElement | null>(null);
 const { elementX: mouseX, elementY: mouseY } = useMouseInElement(imgRef);
+const { gamma: deviceGamma, beta: deviceBeta } = useDeviceOrientation();
 
 const style = ref({
   transform: "",
@@ -41,6 +42,19 @@ function animateImage() {
     transform: `perspective(1000px) rotateX(${rotationX}deg) rotateY(${rotationY}deg)`,
   };
 }
+
+function animateImageOrientation() {
+  const diffX = deviceGamma.value;
+  const diffY = deviceBeta.value;
+  const rotationX = diffY ? (diffY / imageHeight.value) * -60 : 0;
+  const rotationY = diffX ? (diffX / imageWidth.value) * 60 : 0;
+
+  style.value = {
+    transform: `perspective(1000px) rotateX(${rotationX}deg) rotateY(${rotationY}deg)`,
+  };
+}
+
+watch([deviceGamma, deviceBeta], animateImageOrientation);
 
 function resetImage() {
   style.value = {
